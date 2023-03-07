@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://dnf16qxgwsp1j"]
+
+[ext_resource type="Script" path="res://new folder/fpds.gd" id="1_cmdc6"]
+[ext_resource type="PackedScene" uid="uid://c605qgcpgptvy" path="res://crosshair.tscn" id="2_ymd1l"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6qgcx"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iw7xu"]
+
+[sub_resource type="Sky" id="Sky_b0e4i"]
+sky_material = SubResource("ProceduralSkyMaterial_iw7xu")
+
+[sub_resource type="Environment" id="Environment_tq8f0"]
+background_mode = 2
+sky = SubResource("Sky_b0e4i")
+tonemap_mode = 3
+sdfgi_enabled = true
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_cmdc6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_6qgcx")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+environment = SubResource("Environment_tq8f0")
+
+[node name="Control" parent="Head" instance=ExtResource("2_ymd1l")]
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.389, 0)
+target_position = Vector3(0, 1, 0)
